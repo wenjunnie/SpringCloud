@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG
+      profile: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+zuul:
+  routes:
+    #下方命名可随意，/myProduct/product/list -> /product/product/list
+    myProduct:
+      path: /myProduct/**
+      serviceId: product
+#      不过滤掉Cookie
+      sensitiveHeaders:
+    #简洁写法
+#    product: /myProduct/**
+  #排除某些路由
+  ignored-patterns:
+    - /**/product/listForOrder
+  #全部服务忽略敏感头（全部服务传递Cookie）
+  sensitive-headers:
+#    防止Zuul超时（本质是防止hystrix超时）
+#配置超时，下面两者需同时使用
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+ribbon:
+  ReadTimeout: 5000
+  SocketTimeout: 5000
+management:
+  security:
+    enabled: false

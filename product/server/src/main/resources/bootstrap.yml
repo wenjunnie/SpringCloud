@@ -1,0 +1,25 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+#  配置到Rancher可访问
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: product
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG
+      profile: dev
+  zipkin:
+    base-url: http://localhost:9411/
+    #在zipkin客户端显示
+    sender:
+      type: web
+  #显示比例为100%
+  sleuth:
+    sampler:
+      rate: 1

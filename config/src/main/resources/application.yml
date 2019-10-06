@@ -1,0 +1,23 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  #  配置到Rancher可访问
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wenjunnie/config-repo
+          username: 1287018840@qq.com
+          password: nie970309
+          basedir: D:\JetBrains\IdeaProjects\SpringCloud\config\basedir
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
